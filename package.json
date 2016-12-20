@@ -1,33 +1,34 @@
 {
-  "name": "stylelint-checkstyle-formatter",
+  "name": "stylelint-junit-formatter",
   "version": "0.1.0",
-  "description": "Output Checkstyle XML reports of stylelint results",
+  "description": "Output JUnit XML reports of stylelint results",
   "main": "index.js",
   "scripts": {
     "test": "tape test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stylelint/stylelint-checkstyle-formatter.git"
+    "url": "git+https://github.com/eddies/stylelint-junit-formatter.git"
   },
   "keywords": [
     "stylelint",
-    "checkstyle",
+    "junit",
     "formatter",
     "reporter",
     "report"
   ],
-  "author": "David Clark",
+  "author": "Edwin Shin",
+  "contributors": ["David Clark"],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stylelint/stylelint-checkstyle-formatter/issues"
+    "url": "https://github.com/eddies/stylelint-junit-formatter/issues"
   },
-  "homepage": "https://github.com/stylelint/stylelint-checkstyle-formatter#readme",
+  "homepage": "https://github.com/eddies/stylelint-junit-formatter#readme",
   "devDependencies": {
-    "tape": "^4.2.2",
-    "xml2js": "^0.4.15"
+    "tape": "^4.6.3",
+    "xml2js": "^0.4.17"
   },
   "dependencies": {
-    "lodash": "^3.0.0"
+    "lodash": "^4.17.2"
   }
 }

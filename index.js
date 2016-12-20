@@ -1,25 +1,28 @@
 var _ = require('lodash');
-var checkstyleVersion = '4.3'; // Why? Because that's what ESLint uses, I suppose
 
 module.exports = function(stylelintResults) {
   var xml = '<?xml version="1.0" encoding="utf-8"?>';
-  xml += '\n<checkstyle version="' + checkstyleVersion + '">';
+  xml += '\n<testsuites>';
   stylelintResults.forEach(function(stylelintResult) {
-    xml += '\n  <file name="' + _.escape(stylelintResult.source) + '">';
     if (!stylelintResult.warnings.length) {
-      xml += '</file>';
       return;
     }
+    xml += '\n  <testsuite package="stylelint.rules" ';
+    xml += 'name="' + _.escape(stylelintResult.source) + '" ';
+    xml += 'tests="' + stylelintResult.warnings.length + '" ';
+    xml += 'errors="' + stylelintResult.warnings.length + '">';
+
     stylelintResult.warnings.forEach(function(warning) {
-      xml += '\n    <error source="' + _.escape('stylelint.rules.' + warning.rule) + '" ';
+      xml += '\n    <testcase name="' + _.escape(warning.rule) + '">';
+      xml += '\n        <failure message="' + _.escape(warning.text) + '">';
       xml += 'line="' + _.escape(warning.line) + '" ';
       xml += 'column="' + _.escape(warning.column) + '" ';
-      xml += 'severity="' + _.escape(warning.severity) + '" ';
-      xml += 'message="' + _.escape(warning.text) + '" ';
-      xml += '/>';
+      xml += 'severity="' + _.escape(warning.severity) + '"';
+      xml += '</failure>';
+      xml += '\n    </testcase>';
     });
-    xml += '\n  </file>';
+    xml += '\n  </testsuite>';
   });
-  xml += '\n</checkstyle>';
+  xml += '\n</testsuites>';
   return xml;
 }

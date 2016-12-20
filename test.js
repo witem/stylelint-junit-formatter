@@ -44,16 +44,21 @@ var mockResults = [
 ];
 
 var expectedXml = '<?xml version="1.0" encoding="utf-8"?>\n' +
-  '<checkstyle version="4.3">\n' +
-  '  <file name="path/to/fileA.css">\n' +
-  '    <error source="stylelint.rules.block-no-empty" line="3" column="8" severity="warning" message="No empty block!" />\n' +
-  '  </file>\n' +
-  '  <file name="path/to/fileB.css">\n' +
-  '    <error source="stylelint.rules.foo" line="1" column="2" severity="error" message="foo text" />\n' +
-  '    <error source="stylelint.rules.bar" line="2" column="5" severity="error" message="bar text" />\n' +
-  '  </file>\n' +
-  '  <file name="path/to/fileC.css"></file>\n' +
-  '</checkstyle>';
+  '<testsuites>\n' +
+  '  <testsuite package="stylelint.rules" name="path/to/fileA.css" tests="1" errors="1">\n' +
+  '    <testcase name="block-no-empty">\n' +
+  '        <failure message="No empty block!">line="3" column="8" severity="warning"</failure>\n' +
+  '    </testcase>\n' +
+  '  </testsuite>\n' +
+  '  <testsuite package="stylelint.rules" name="path/to/fileB.css" tests="2" errors="2">\n' +
+  '    <testcase name="foo">\n' +
+  '        <failure message="foo text">line="1" column="2" severity="error"</failure>\n' +
+  '    </testcase>\n' +
+  '    <testcase name="bar">\n' +
+  '        <failure message="bar text">line="2" column="5" severity="error"</failure>\n' +
+  '    </testcase>\n' +
+  '  </testsuite>\n' +
+  '</testsuites>';
 
 test('output XML string', function(t) {
   var output = checkstyleFormatter(mockResults);
