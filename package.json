@@ -18,7 +18,7 @@
     "report"
   ],
   "author": "Edwin Shin",
-  "contributors": ["David Clark"],
+  "contributors": ["David Clark", "Erik Pavletic"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/eddies/stylelint-junit-formatter/issues"

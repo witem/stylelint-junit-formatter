@@ -1,28 +1,31 @@
-var _ = require('lodash');
+const escapeString = require('lodash/escape');
+const templates = require('./templates');
 
 module.exports = function(stylelintResults) {
-  var xml = '<?xml version="1.0" encoding="utf-8"?>';
-  xml += '\n<testsuites>';
-  stylelintResults.forEach(function(stylelintResult) {
-    if (!stylelintResult.warnings.length) {
-      return;
-    }
-    xml += '\n  <testsuite package="stylelint.rules" ';
-    xml += 'name="' + _.escape(stylelintResult.source) + '" ';
-    xml += 'tests="' + stylelintResult.warnings.length + '" ';
-    xml += 'errors="' + stylelintResult.warnings.length + '">';
+  const testSuites = stylelintResults.map((testSuite) => parseSuite(testSuite))
+  .join('');
 
-    stylelintResult.warnings.forEach(function(warning) {
-      xml += '\n    <testcase name="' + _.escape(warning.rule) + '">';
-      xml += '\n        <failure message="' + _.escape(warning.text) + '">';
-      xml += 'line="' + _.escape(warning.line) + '" ';
-      xml += 'column="' + _.escape(warning.column) + '" ';
-      xml += 'severity="' + _.escape(warning.severity) + '"';
-      xml += '</failure>';
-      xml += '\n    </testcase>';
-    });
-    xml += '\n  </testsuite>';
-  });
-  xml += '\n</testsuites>';
-  return xml;
+  return templates.xmlWrapper(testSuites);
+};
+
+function parseSuite(testSuite) {
+  const suiteName = testSuite.source;
+  const failuresCount = testSuite.warnings.length;
+  const testCases = testSuite.errored
+    ? testSuite.warnings.map((testCase) => parseFailedCase(testCase, testSuite.source))
+.join('')
+: templates.passedTestCase();
+
+  return templates.testSuite(suiteName, failuresCount, testCases);
+}
+
+function parseFailedCase(testCase, source) {
+  const ruleName = escapeString(testCase.rule);
+  const type = escapeString(testCase.severity);
+  const message = escapeString(testCase.text);
+  const lineNumber = escapeString(testCase.line);
+  const column = escapeString(testCase.column);
+  const sourceFile = escapeString(source);
+
+  return templates.failedTestCase(ruleName, type, message, lineNumber, column, sourceFile);
 }
