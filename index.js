@@ -3,7 +3,7 @@ const templates = require('./templates');
 
 module.exports = function(stylelintResults) {
   const testSuites = stylelintResults.map((testSuite) => parseSuite(testSuite))
-  .join('');
+                                     .join('');
 
   return templates.xmlWrapper(testSuites);
 };
@@ -13,8 +13,8 @@ function parseSuite(testSuite) {
   const failuresCount = testSuite.warnings.length;
   const testCases = testSuite.errored
     ? testSuite.warnings.map((testCase) => parseFailedCase(testCase, testSuite.source))
-.join('')
-: templates.passedTestCase();
+                        .join('')
+    : templates.passedTestCase();
 
   return templates.testSuite(suiteName, failuresCount, testCases);
 }
