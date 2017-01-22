@@ -9,6 +9,7 @@ Output JUnit XML reports of stylelint results
 ### With the Stylelint Node API:
 
 ```javascript
+const fs = require('fs');
 const stylelint = require('stylelint');
 const junitFormatter = require('stylelint-junit-formatter');
 
@@ -19,7 +20,8 @@ const stylelintOptions = {
 
 stylelint.lint(stylelintOptions)
   .then((resultObject) => {
-    // Do something with the result, e.g. write a report.xml to disk.
+    // Do something with the result, e.g. write a report.xml to disk:
+    // fs.writeFile('report.xml', resultObject.output, (error) => {…});
   });
 
 ```
