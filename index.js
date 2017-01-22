@@ -1,31 +1,48 @@
-const escapeString = require('lodash/escape');
-const templates = require('./templates');
+const xmlBuilder = require('xmlbuilder');
 
 module.exports = function(stylelintResults) {
-  const testSuites = stylelintResults.map((testSuite) => parseSuite(testSuite))
-                                     .join('');
+  const xmlRoot = xmlBuilder.create('testsuites', { encoding: 'utf-8' })
+                            .att('package', 'stylelint.rules');
+  const testSuites = stylelintResults.map((testSuite) => parseSuite(testSuite));
 
-  return templates.xmlWrapper(testSuites);
+  return xmlRoot
+    .element(testSuites)
+    .end({ pretty: true });
 };
 
 function parseSuite(testSuite) {
   const suiteName = testSuite.source;
   const failuresCount = testSuite.warnings.length;
   const testCases = testSuite.errored
-    ? testSuite.warnings.map((testCase) => parseFailedCase(testCase, testSuite.source))
-                        .join('')
-    : templates.passedTestCase();
+                      ? testSuite.warnings.map((testCase) => parseFailedCase(testCase, suiteName))
+                      : { '@name': 'stylelint.passed' };
 
-  return templates.testSuite(suiteName, failuresCount, testCases);
+  return {
+    testsuite: {
+      '@name': suiteName,
+      '@failures': failuresCount,
+      '@errors': failuresCount,
+      '@tests': failuresCount || '1',
+      testcase: testCases,
+    },
+  };
 }
 
 function parseFailedCase(testCase, source) {
-  const ruleName = escapeString(testCase.rule);
-  const type = escapeString(testCase.severity);
-  const message = escapeString(testCase.text);
-  const lineNumber = escapeString(testCase.line);
-  const column = escapeString(testCase.column);
-  const sourceFile = escapeString(source);
+  const {
+    rule,
+    severity,
+    text,
+    line,
+    column,
+  } = testCase;
 
-  return templates.failedTestCase(ruleName, type, message, lineNumber, column, sourceFile);
+  return {
+    '@name': rule,
+    failure: {
+      '@type': severity,
+      '@message': text,
+      '#text': `On line ${line}, column ${column} in ${source}`,
+    },
+  };
 }
