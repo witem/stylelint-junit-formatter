@@ -1,6 +1,6 @@
 const xmlBuilder = require('xmlbuilder');
 
-module.exports = function(stylelintResults) {
+module.exports = (stylelintResults) => {
   const xmlRoot = xmlBuilder.create('testsuites', { encoding: 'utf-8' })
                             .att('package', 'stylelint.rules');
   const testSuites = stylelintResults.map((testSuite) => parseSuite(testSuite));

@@ -102,7 +102,7 @@ const expectedFailingXml = `<?xml version="1.0" encoding="utf-8"?>
   </testsuite>
 </testsuites>`;
 
-tape('It outputs a correct .xml for passing testsuites', (test)=> {
+tape('It outputs a correct .xml for passing testsuites', (test) => {
   const output = stylelinitJunitFormatter(mockPassingTest);
   test.equal(output, expectedPassingXml, 'It matches expectation');
   test.doesNotThrow(() => {
@@ -113,7 +113,7 @@ tape('It outputs a correct .xml for passing testsuites', (test)=> {
   test.end();
 });
 
-tape('It outputs a correct .xml for failing testsuites', (test)=> {
+tape('It outputs a correct .xml for failing testsuites', (test) => {
   const output = stylelinitJunitFormatter(mockFailingTest);
   test.equal(output, expectedFailingXml, 'It matches expectation');
   test.doesNotThrow(() => {
