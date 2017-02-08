@@ -1,6 +1,6 @@
 {
   "name": "stylelint-junit-formatter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Output JUnit XML reports of stylelint results",
   "main": "index.js",
   "scripts": {
@@ -18,17 +18,20 @@
     "report"
   ],
   "author": "Edwin Shin",
-  "contributors": ["David Clark"],
+  "contributors": [
+    "David Clark",
+    "Erik Pavletic"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/eddies/stylelint-junit-formatter/issues"
   },
   "homepage": "https://github.com/eddies/stylelint-junit-formatter#readme",
+  "dependencies": {
+    "xmlbuilder": "^8.2.2"
+  },
   "devDependencies": {
     "tape": "^4.6.3",
     "xml2js": "^0.4.17"
-  },
-  "dependencies": {
-    "lodash": "^4.17.2"
   }
 }

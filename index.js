@@ -1,28 +1,48 @@
-var _ = require('lodash');
+const xmlBuilder = require('xmlbuilder');
 
-module.exports = function(stylelintResults) {
-  var xml = '<?xml version="1.0" encoding="utf-8"?>';
-  xml += '\n<testsuites>';
-  stylelintResults.forEach(function(stylelintResult) {
-    if (!stylelintResult.warnings.length) {
-      return;
+module.exports = (stylelintResults) => {
+  const xmlRoot = xmlBuilder.create('testsuites', { encoding: 'utf-8' })
+                            .att('package', 'stylelint.rules');
+  const testSuites = stylelintResults.map((testSuite) => parseSuite(testSuite));
+
+  return xmlRoot
+    .element(testSuites)
+    .end({ pretty: true });
+};
+
+function parseSuite(testSuite) {
+  const suiteName = testSuite.source;
+  const failuresCount = testSuite.warnings.length;
+  const testCases = testSuite.errored
+                      ? testSuite.warnings.map((testCase) => parseFailedCase(testCase, suiteName))
+                      : { '@name': 'stylelint.passed' };
+
+  return {
+    testsuite: {
+      '@name': suiteName,
+      '@failures': failuresCount,
+      '@errors': failuresCount,
+      '@tests': failuresCount || '1',
+      testcase: testCases
     }
-    xml += '\n  <testsuite package="stylelint.rules" ';
-    xml += 'name="' + _.escape(stylelintResult.source) + '" ';
-    xml += 'tests="' + stylelintResult.warnings.length + '" ';
-    xml += 'errors="' + stylelintResult.warnings.length + '">';
+  };
+}
 
-    stylelintResult.warnings.forEach(function(warning) {
-      xml += '\n    <testcase name="' + _.escape(warning.rule) + '">';
-      xml += '\n        <failure message="' + _.escape(warning.text) + '">';
-      xml += 'line="' + _.escape(warning.line) + '" ';
-      xml += 'column="' + _.escape(warning.column) + '" ';
-      xml += 'severity="' + _.escape(warning.severity) + '"';
-      xml += '</failure>';
-      xml += '\n    </testcase>';
-    });
-    xml += '\n  </testsuite>';
-  });
-  xml += '\n</testsuites>';
-  return xml;
+function parseFailedCase(testCase, source) {
+  const {
+    rule,
+    severity,
+    text,
+    line,
+    column
+  } = testCase;
+
+  return {
+    '@name': rule,
+    failure: {
+      '@type': severity,
+      '@message': text,
+      '#text': `On line ${line}, column ${column} in ${source}`
+    }
+  };
 }
