@@ -18,7 +18,10 @@
     "report"
   ],
   "author": "Edwin Shin",
-  "contributors": ["David Clark"],
+  "contributors": [
+    "David Clark",
+    "Erik Pavletic"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/eddies/stylelint-junit-formatter/issues"
@@ -26,9 +29,7 @@
   "homepage": "https://github.com/eddies/stylelint-junit-formatter#readme",
   "devDependencies": {
     "tape": "^4.6.3",
-    "xml2js": "^0.4.17"
-  },
-  "dependencies": {
-    "lodash": "^4.17.2"
+    "xml2js": "^0.4.17",
+    "xmlbuilder": "^8.2.2"
   }
 }
