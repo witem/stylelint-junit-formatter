@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/eddies/stylelint-junit-formatter.svg?branch=master)](https://travis-ci.org/eddies/stylelint-junit-formatter)
 
-Output JUnit XML reports of stylelint results
+Output JUnit XML reports of stylelint results (that can be parsed by CircleCI or Bamboo).
 
 ## Usage
 

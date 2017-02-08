@@ -9,7 +9,7 @@ const mockPassingTest = [
     warnings: [],
     deprecations: [],
     invalidOptionWarnings: [],
-    ignored: false,
+    ignored: false
   },
   {
     source: 'path/to/fileB.css',
@@ -17,7 +17,7 @@ const mockPassingTest = [
     warnings: [],
     deprecations: [],
     invalidOptionWarnings: [],
-    ignored: false,
+    ignored: false
   },
   {
     source: 'path/to/fileC.css',
@@ -25,7 +25,7 @@ const mockPassingTest = [
     warnings: [],
     deprecations: [],
     invalidOptionWarnings: [],
-    ignored: false,
+    ignored: false
   }
 ];
 
@@ -49,7 +49,7 @@ const mockFailingTest = [
     warnings: [],
     deprecations: [],
     invalidOptionWarnings: [],
-    ignored: false,
+    ignored: false
   },
   {
     source: 'path/to/fileB.css',
@@ -72,7 +72,7 @@ const mockFailingTest = [
     ],
     deprecations: [],
     invalidOptionWarnings: [],
-    ignored: false,
+    ignored: false
   },
   {
     source: 'path/to/fileC.css',
@@ -80,7 +80,7 @@ const mockFailingTest = [
     warnings: [],
     deprecations: [],
     invalidOptionWarnings: [],
-    ignored: false,
+    ignored: false
   }
 ];
 

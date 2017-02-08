@@ -23,8 +23,8 @@ function parseSuite(testSuite) {
       '@failures': failuresCount,
       '@errors': failuresCount,
       '@tests': failuresCount || '1',
-      testcase: testCases,
-    },
+      testcase: testCases
+    }
   };
 }
 
@@ -34,7 +34,7 @@ function parseFailedCase(testCase, source) {
     severity,
     text,
     line,
-    column,
+    column
   } = testCase;
 
   return {
@@ -42,7 +42,7 @@ function parseFailedCase(testCase, source) {
     failure: {
       '@type': severity,
       '@message': text,
-      '#text': `On line ${line}, column ${column} in ${source}`,
-    },
+      '#text': `On line ${line}, column ${column} in ${source}`
+    }
   };
 }
