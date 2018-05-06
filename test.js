@@ -102,6 +102,11 @@ const expectedFailingXml = `<?xml version="1.0" encoding="utf-8"?>
   </testsuite>
 </testsuites>`;
 
+const mockEmptyTests = [];
+
+const expectedEmptyXml = `<?xml version="1.0" encoding="utf-8"?>
+<testsuites package="stylelint.rules"/>`;
+
 tape('It outputs a correct .xml for passing testsuites', (test) => {
   const output = stylelinitJunitFormatter(mockPassingTest);
   test.equal(output, expectedPassingXml, 'It matches expectation');
@@ -116,6 +121,17 @@ tape('It outputs a correct .xml for passing testsuites', (test) => {
 tape('It outputs a correct .xml for failing testsuites', (test) => {
   const output = stylelinitJunitFormatter(mockFailingTest);
   test.equal(output, expectedFailingXml, 'It matches expectation');
+  test.doesNotThrow(() => {
+    xml2js.parseString(output, (error) => {
+      if (error) throw error;
+    });
+  }, 'It outputs valid xml');
+  test.end();
+});
+
+tape('It outputs a correct .xml for empty testsuites', (test) => {
+  const output = stylelinitJunitFormatter(mockEmptyTests);
+  test.equal(output, expectedEmptyXml, 'It matches expectation');
   test.doesNotThrow(() => {
     xml2js.parseString(output, (error) => {
       if (error) throw error;
