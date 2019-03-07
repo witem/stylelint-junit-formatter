@@ -60,14 +60,14 @@ const mockFailingTest = [
         column: 3,
         rule: 'declaration-block-properties-order',
         severity: 'error',
-        text: 'Expected quot;colorquot; to come before quot;font-weightquot; (declaration-block-properties-order)'
+        text: 'Expected quot;colorquot; to come before quot;font-weightquot; (declaration-block-properties-order)'
       },
       {
         line: 8,
         column: 3,
         rule: 'shorthand-property-no-redundant-values',
         severity: 'error',
-        text: 'Unexpected longhand value #39;0 2rem 1.5rem 2rem#39; instead of #39;0 2rem 1.5rem#39; (shorthand-property-no-redundant-values)'
+        text: 'Unexpected longhand value #39;0 2rem 1.5rem 2rem#39; instead of #39;0 2rem 1.5rem#39; (shorthand-property-no-redundant-values)'
       },
     ],
     deprecations: [],
@@ -91,10 +91,10 @@ const expectedFailingXml = `<?xml version="1.0" encoding="utf-8"?>
   </testsuite>
   <testsuite name="path/to/fileB.css" failures="2" errors="2" tests="2">
     <testcase name="declaration-block-properties-order">
-      <failure type="error" message="Expected quot;colorquot; to come before quot;font-weightquot; (declaration-block-properties-order)">On line 7, column 3 in path/to/fileB.css</failure>
+      <failure type="error" message="Expected quot;colorquot; to come before quot;font-weightquot; (declaration-block-properties-order)">On line 7, column 3 in path/to/fileB.css</failure>
     </testcase>
     <testcase name="shorthand-property-no-redundant-values">
-      <failure type="error" message="Unexpected longhand value #39;0 2rem 1.5rem 2rem#39; instead of #39;0 2rem 1.5rem#39; (shorthand-property-no-redundant-values)">On line 8, column 3 in path/to/fileB.css</failure>
+      <failure type="error" message="Unexpected longhand value #39;0 2rem 1.5rem 2rem#39; instead of #39;0 2rem 1.5rem#39; (shorthand-property-no-redundant-values)">On line 8, column 3 in path/to/fileB.css</failure>
     </testcase>
   </testsuite>
   <testsuite name="path/to/fileC.css" failures="0" errors="0" tests="1">
