@@ -29,10 +29,10 @@
   },
   "homepage": "https://github.com/eddies/stylelint-junit-formatter#readme",
   "dependencies": {
-    "xmlbuilder": "^11.0.0"
+    "xmlbuilder": "^13.0.2"
   },
   "devDependencies": {
-    "tape": "^4.10.1",
+    "tape": "^4.11.0",
     "xml2js": "^0.4.19"
   }
 }
