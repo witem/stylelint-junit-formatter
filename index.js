@@ -1,13 +1,12 @@
 const xmlBuilder = require('xmlbuilder');
 
 module.exports = (stylelintResults) => {
-  const xmlRoot = xmlBuilder.create('testsuites', { encoding: 'utf-8' })
-                            .att('package', 'stylelint.rules');
+  const xmlRoot = xmlBuilder.create('testsuites', { encoding: 'utf-8' });
   const testSuites = stylelintResults.map((testSuite) => parseSuite(testSuite));
 
   return testSuites.length > 0
     ? xmlRoot.element(testSuites).end({ pretty: true })
-    : xmlRoot.end({ pretty: true });    
+    : xmlRoot.end({ pretty: true });
 };
 
 function parseSuite(testSuite) {
